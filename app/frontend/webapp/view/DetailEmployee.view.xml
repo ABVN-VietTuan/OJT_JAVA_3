@@ -1,0 +1,153 @@
+<mvc:View
+    controllerName="frontend.controller.DetailEmployee"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+>
+    <Page
+        id="DetailEmployeePage"
+        title="Employee Details"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
+        <f:SimpleForm
+            id="employeeForm"
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="4"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="1"
+            emptySpanL="1"
+            emptySpanM="0"
+            columnsXL="2"
+            columnsL="2"
+            columnsM="1"
+        >
+            <!-- === Personal Information === -->
+            <Label text="First Name" />
+            <Input
+                editable="{ui>/isAdmin}"
+                id="firstName"
+                value="{employee>firstName}"
+            />
+
+            <Label text="Last Name" />
+            <Input
+                editable="{ui>/isAdmin}"
+                id="lastName"
+                value="{employee>lastName}"
+            />
+
+            <Label text="Email" />
+            <Input
+                editable="{ui>/isAdmin}"
+                id="email"
+                value="{employee>email}"
+                type="Email"
+            />
+
+            <Label text="Gender" />
+            <Select
+                editable="{ui>/isAdmin}"
+                id="gender"
+                selectedKey="{employee>gender}"
+            >
+                <items>
+                    <core:Item
+                        key="Male"
+                        text="Male"
+                    />
+                    <core:Item
+                        key="Female"
+                        text="Female"
+                    />
+                    <core:Item
+                        key="Other"
+                        text="Other"
+                    />
+                </items>
+            </Select>
+
+            <Label text="Date of Birth" />
+            <DatePicker
+                editable="{ui>/isAdmin}"
+                id="dob"
+                value="{employee>dateOfBirth}"
+                displayFormat="yyyy-MM-dd"
+                valueFormat="yyyy-MM-dd"
+                placeholder="yyyy-MM-dd"
+            />
+
+            <Label text="Hire Date" />
+            <DatePicker
+                editable="{ui>/isAdmin}"
+                id="hireDate"
+                value="{employee>hireDate}"
+                displayFormat="yyyy-MM-dd"
+                valueFormat="yyyy-MM-dd"
+                placeholder="yyyy-MM-dd"
+            />
+
+            <!-- === Job Information === -->
+            <Label text="Role" />
+            <ComboBox
+                editable="{ui>/isAdmin}"
+                id="role"
+                items="{employee>/Roles}"
+                selectedKey="{employee>role_ID}"
+                placeholder="Select Role"
+            >
+                <core:Item
+                    key="{employee>ID}"
+                    text="{employee>name}"
+                />
+            </ComboBox>
+
+            <Label text="Department" />
+            <ComboBox
+                editable="{ui>/isAdmin}"
+                id="department"
+                items="{employee>/Departments}"
+                selectedKey="{employee>department_ID}"
+                placeholder="Select Department"
+            >
+                <core:Item
+                    key="{employee>ID}"
+                    text="{employee>name}"
+                />
+            </ComboBox>
+
+            <!-- === Salary (Read-only) === -->
+            <Label text="Salary (USD)" />
+            <Text text="{employee>salary}" />
+        </f:SimpleForm>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+
+                <!-- Visible only for Admin -->
+                <Button
+                    text="Calculate Salary"
+                    icon="sap-icon://money-bills"
+                    press=".onCalculateSalary"
+                    visible="{= ${userModel>/role} === 'Admin' }"
+                />
+
+                <Button
+                    visible="{user>/isAdmin}"
+                    id="editbtn"
+                    text="Save"
+                    type="Emphasized"
+                    icon="sap-icon://save"
+                    press=".onEditEmployee"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

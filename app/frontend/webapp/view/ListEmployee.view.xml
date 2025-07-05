@@ -1,0 +1,140 @@
+<mvc:View
+    controllerName="frontend.controller.ListEmployee"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns:u="sap.ui.unified"
+>
+    <Page
+        id="EmployeeList"
+        title="Employee"
+        showHeader="false"
+    >
+        <tnt:ToolHeader
+            class="header"
+            height="3rem"
+        >
+            <HBox class="header_left">
+                <Image
+                    src="images/Logo.png"
+                    width="32px"
+                    height="32px"
+                />
+                <Text
+                    text="Abeam Consulting"
+                    class="header_text sapUiTinyMarginBegin sapUiTinyMarginEnd"
+                    wrapping="false"
+                />
+            </HBox>
+
+            <ToolbarSpacer />
+
+            <Button
+                type="Transparent"
+                icon="sap-icon://form"
+                text="Input Form"
+                press=".onEmployeePress"
+                class="sapUiTinyMarginEnd"
+            />
+            <Button
+                type="Transparent"
+                icon="sap-icon://employee"
+                text="Employee List"
+                press=".onEmployeeListPress"
+            />
+        </tnt:ToolHeader>
+
+        <VBox class="employeeList_body">
+            <Table
+                alternateRowColors="true"
+                id="employeeTable"
+                mode="SingleSelectMaster"
+                itemPress=".onRowPress"
+                growing="true"
+                growingThreshold="10"
+                items="{
+                    path: 'employee>/Employees',
+                    parameters: {
+                        $expand: 'department,role'
+                    }
+                }"
+            >
+                <columns>
+                    <Column hAlign="Center">
+                        <Text text="Department" />
+                    </Column>
+                    <Column hAlign="Center" width="15rem">
+                        <Text text="Name" />
+                    </Column>
+                    <Column hAlign="Center" width="20rem">
+                        <Text text="Email" />
+                    </Column>
+                    <Column hAlign="Center" width="8rem">
+                        <Text text="Role" />
+                    </Column>
+                    <Column hAlign="Center" width="8rem">
+                        <Text text="Gender" />
+                    </Column>
+                    <Column hAlign="Center" width="8rem">
+                        <Text text="Date Of Birth" />
+                    </Column>
+                    <Column hAlign="Center" width="8rem">
+                        <Text text="Hire Date" />
+                    </Column>
+                    <Column hAlign="Center" width="8rem">
+                        <Text text="Salary" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation">
+                        <cells>
+                            <Text text="{employee>department/name}" />
+                            <Text
+                                text="{employee>firstName} {employee>lastName}"
+                            />
+                            <Text text="{employee>email}" />
+                            <Text text="{employee>role/name}" />
+                            <Text text="{employee>gender}" />
+                            <Text text="{employee>dateOfBirth}" />
+                            <Text text="{employee>hireDate}" />
+                            <Text text="{employee>salary}" />
+                            <Button
+                                id="deleteBtn"
+                                class="btn"
+                                press=".onRemoveEmployee"
+                                icon="sap-icon://delete"
+                                visible="false"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            <!-- <Button
+                id="deleteBtn"
+                class="body_submit"
+                icon="sap-icon://add-employee"
+                text="Delete"
+                press=".onRemoveEmployee"
+            /> -->
+        </VBox>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                    id="submitBtn"
+                    class="body_submit"
+                    icon="sap-icon://add-employee"
+                    text="Add new Employee"
+                    press=".onAddEmployee"
+                    visible="false"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>
