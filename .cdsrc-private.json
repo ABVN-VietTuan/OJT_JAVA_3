@@ -7,8 +7,8 @@
           "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
           "org": "36207be8trial",
           "space": "dev",
-          "instance": "OJT_JAVA_2-db",
-          "key": "OJT_JAVA_2-db-key"
+          "instance": "OJT_JAVA_3-hanaa",
+          "key": "SharedDevKey"
         },
         "kind": "hana",
         "vcap": {
@@ -21,7 +21,7 @@
           "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
           "org": "36207be8trial",
           "space": "dev",
-          "instance": "OJT_JAVA2-auth",
+          "instance": "OJT_JAVA3-auth",
           "key": "default"
         },
         "kind": "xsuaa-auth",
